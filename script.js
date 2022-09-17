@@ -34,22 +34,30 @@ const tooltipLabel = function (context) {
 
 // Background Color
 const setBackground = function (index, b = "background") {
-  if (b === "background")
+  if (b === "background") {
     return new Date().getDay() === index + 1
       ? "hsl(186, 34%, 60%)"
       : "hsl(10, 79%, 65%)";
+  }
 
-  if (b === "hover")
+  if (b === "hover") {
     return new Date().getDay() === index + 1
       ? "hsl(186, 50%, 80%)"
       : "hsl(10, 95%, 80%)";
+  }
 };
 
 let backgroundArr = [];
 let hoverBackgroudArr = [];
-for (let i = 0; i < 7; i++) {
+for (let i = 0; i < daysArr.length; i++) {
   backgroundArr.push(setBackground(i));
   hoverBackgroudArr.push(setBackground(i, "hover"));
+}
+
+// Checking for sunday
+if (new Date().getDay() === 0) {
+  backgroundArr[6] = "hsl(186, 34%, 60%)";
+  hoverBackgroudArr[6] = "hsl(186, 50%, 80%)";
 }
 
 // Creating chart with chart.js
