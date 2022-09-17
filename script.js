@@ -1,5 +1,22 @@
 "use strict";
 
+// Getting data from data.json file
+import jsonData from "./data.json" assert { type: "json" };
+
+let daysArr = [];
+let amountsArr = [];
+let total = 0;
+jsonData.forEach((el) => {
+  daysArr.push(el.day);
+  amountsArr.push(el.amount);
+  total += el.amount;
+});
+
+// Total amount
+let totalEl = document.querySelector(".total__number");
+totalEl.textContent = "$" + total;
+
+// Getting chart
 const ctx = document.getElementById("myChart").getContext("2d");
 
 Chart.defaults.font.size = 10;
@@ -35,13 +52,14 @@ for (let i = 0; i < 7; i++) {
   hoverBackgroudArr.push(setBackground(i, "hover"));
 }
 
+// Creating chart with chart.js
 const myChart = new Chart(ctx, {
   type: "bar",
   data: {
-    labels: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+    labels: daysArr,
     datasets: [
       {
-        data: [17.45, 34.91, 52.36, 31.07, 23.39, 43.28, 25.48],
+        data: amountsArr,
         backgroundColor: backgroundArr,
         hoverBackgroundColor: hoverBackgroudArr,
         borderRadius: "3",
